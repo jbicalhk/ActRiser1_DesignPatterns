@@ -2,10 +2,9 @@ package io.github.game;
 
 public class Building extends Map {
 	
-	
-	
-	public Building() {
-		super();
+
+	public Building(String mapFilePath) {
+		super(mapFilePath);
 		// TODO Auto-generated constructor stub
 	}
 

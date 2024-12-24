@@ -16,14 +16,14 @@ class Player extends Entity {
 	private MovementStrategy movementStrategy;
 	private AttackStrategy attackStrategy;
 	
-	Player() {
-		this.rect = new Rectangle(100, 100, 40, 40);
-		this.vida = 100;
-		this.dano = 10;
-		this.movementStrategy = new WalkMovement(rect);
-		this.attackStrategy = new PlayerAttackStrategy(rect);
-		this.bullets = new ArrayList<>();
-	}
+	Player(float posX, float posY) {
+        super(posX, posY);
+        this.rect = new Rectangle(posX, posY, 40, 40);
+        this.vida = 100;
+        this.dano = 10;
+        this.movementStrategy = new WalkMovement(rect);
+        this.attackStrategy = new PlayerAttackStrategy(rect);
+    }
 
 	public void addKill() {
 		kills++;

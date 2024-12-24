@@ -13,7 +13,7 @@ public class EnemyMovement implements MovementStrategy {
     @Override
     public void move(float deltaTime, Player player) {
         Vector2 playerPosition = new Vector2(player.rect.x, player.rect.y);
-        Vector2 enemyPosition = new Vector2(rect.x, rect.y);
+        Vector2 enemyPosition = new Vector2(rect.getX(), rect.getY());
 
         // Follow player if within range
         if (enemyPosition.dst(playerPosition) < 200) {

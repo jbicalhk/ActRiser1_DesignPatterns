@@ -5,7 +5,15 @@ import com.badlogic.gdx.utils.Array;
 abstract class Entity {
 	protected int vida;
     protected int dano;
+    protected float posX;
+    protected float posY;
   
+	public Entity(float posX, float posY) {
+		this.posX = posX;
+		this.posY = posY;
+	}
+
+
 	//abstract void update(float deltaTime, Array<Entity> entities);
     abstract void render(ShapeRenderer renderer);
     
