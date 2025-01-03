@@ -18,7 +18,7 @@ class Player extends Entity {
 	
 	Player(float posX, float posY) {
         super(posX, posY);
-        this.rect = new Rectangle(posX, posY, 40, 40);
+        this.rect = new Rectangle(posX, posY, 16, 16);
         this.vida = 100;
         this.dano = 10;
         this.movementStrategy = new WalkMovement(rect);
@@ -40,6 +40,8 @@ class Player extends Entity {
     public float getY() {
 		return rect.y;
 	}
+    
+    
 	
 	@Override
 	void update(float deltaTime, Player player, Array<Enemy> enemies, Array<Projectile> projectiles) {

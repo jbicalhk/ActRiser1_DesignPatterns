@@ -3,14 +3,16 @@ package io.github.game;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class PlayerAttackStrategy implements AttackStrategy {
     private Rectangle rect;
     private float attackCooldown;
     private float projectileCooldown;
-    
+    private Camera camera;
 
     public PlayerAttackStrategy(Rectangle rect) {
         this.rect = rect;
@@ -32,8 +34,10 @@ public class PlayerAttackStrategy implements AttackStrategy {
 
         // Projectile Attack
         if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT) && projectileCooldown <= 0) {
-            Vector2 mousePos = new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-            Vector2 direction = mousePos.sub(new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2)).nor();
+            @SuppressWarnings("static-access")
+			Vector2 mouseWorldPos = camera.getWorldCoordinates(Gdx.input.getX(), Gdx.input.getY());
+
+            Vector2 direction = mouseWorldPos.sub(new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2)).nor();
             projectiles.add(new Bullet(rect.x + rect.width / 2, rect.y + rect.height / 2, direction, 50, 500, 2f));
             projectileCooldown = 2f;
         }

@@ -14,7 +14,7 @@ class Enemy extends Entity{
     private AttackStrategy attackStrategy;
     Enemy(float posX, float posY) {
         super(posX, posY);
-        this.rect = new Rectangle(posX, posY, 40, 40);
+        this.rect = new Rectangle(posX, posY, 16, 16);
         this.vida = 50;
         this.dano = 5;
         this.movementStrategy = new EnemyMovement(rect);

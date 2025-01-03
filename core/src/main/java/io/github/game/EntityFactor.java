@@ -13,6 +13,6 @@ class EntityFactory {
     }
 
     public static Building createBuilding() {
-        return new Building("mapa.tmx");
+        return new Building();
     }
 }

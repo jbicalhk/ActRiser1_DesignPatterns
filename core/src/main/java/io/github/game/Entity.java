@@ -27,6 +27,12 @@ abstract class Entity {
 	}
 
 	abstract void update(float deltaTime, Player player, Array<Enemy> enemies, Array<Projectile> projectiles);
+
+
+	void render(ShapeRenderer renderer, Camera camera) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
  

@@ -2,6 +2,7 @@ package io.github.game;
 import java.util.ArrayList;
 import java.util.List;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -26,7 +27,7 @@ public class DesktopLauncher extends ApplicationAdapter {
     @Override
     public void create() {
         shapeRenderer = new ShapeRenderer();
-        player = (Player) EntityFactory.createEntity("Player", 100, 100);
+        player = (Player) EntityFactory.createEntity("Player", 200, 100);
         camera = new Camera();
         camera.createCamera();
         enemies = new Array<>();
@@ -35,6 +36,7 @@ public class DesktopLauncher extends ApplicationAdapter {
         buildings = new ArrayList<>();
         eventManager = new EventManager();
         mapa = new Map("mapa.tmx");
+        
 
         eventManager.subscribe((event, data) -> {
             if (event.equals("EnemyKilled")) {
@@ -50,13 +52,16 @@ public class DesktopLauncher extends ApplicationAdapter {
 
     @Override
     public void render() {
-    	
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         float deltaTime = Gdx.graphics.getDeltaTime();
-
+        
         camera.updateCamera(player);
+       
         mapa.render(camera.getCamera());
 
+        // Begin shape renderer with the camera's projection matrix
+        shapeRenderer.setProjectionMatrix(camera.getCamera().combined);
+        
         player.update(deltaTime, player, enemies, projectiles);
         for (Enemy enemy : enemies) {
             enemy.update(deltaTime, player, null, null);
@@ -93,10 +98,12 @@ public class DesktopLauncher extends ApplicationAdapter {
             projectile.render(shapeRenderer);
         }
         shapeRenderer.end();
+        
+        
     }
 
     private void spawnEnemy() {
-        Enemy enemy = (Enemy) EntityFactory.createEntity("Enemy", 100, 100);
+        Enemy enemy = (Enemy) EntityFactory.createEntity("Enemy", MathUtils.random(0, 463), MathUtils.random(0, 463));
         enemies.add(enemy);
     }
 

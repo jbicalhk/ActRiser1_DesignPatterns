@@ -1,10 +1,10 @@
 package io.github.game;
 
-public class Building extends Map {
+public class Building {
 	
 
-	public Building(String mapFilePath) {
-		super(mapFilePath);
+	public Building() {
+		//super(mapFilePath);
 		// TODO Auto-generated constructor stub
 	}
 
