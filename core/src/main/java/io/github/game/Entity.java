@@ -6,7 +6,17 @@ abstract class Entity {
 	protected int vida;
     protected int dano;
     protected float posX;
-    protected float posY;
+    public float getPosX() {
+		return posX;
+	}
+
+
+	public float getPosY() {
+		return posY;
+	}
+
+
+	protected float posY;
   
 	public Entity(float posX, float posY) {
 		this.posX = posX;

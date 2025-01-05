@@ -9,36 +9,47 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class PlayerAttackStrategy implements AttackStrategy {
-    private Rectangle rect;
+    private Rectangle playerBounds;
     private float attackCooldown;
     private float projectileCooldown;
     private Camera camera;
 
-    public PlayerAttackStrategy(Rectangle rect) {
-        this.rect = rect;
+    public PlayerAttackStrategy(Rectangle bounds) {
+        this.playerBounds = bounds;
         this.attackCooldown = 0;
         this.projectileCooldown = 0;
     }
 
     @Override
     public void attack(float deltaTime, Player player, Array<Enemy> enemies, Array<Projectile> projectiles) {
-        // Melee Attack
+        // Ataque corpo a corpo
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && attackCooldown <= 0) {
             for (Enemy enemy : enemies) {
-                if (rect.overlaps(enemy.rect)) {
+                if (playerBounds.overlaps(enemy.getBounds())) {
                     enemy.takeDamage(15);
+                    System.out.println("Player hit enemy! Enemy health: " + enemy.vida);
                 }
             }
             attackCooldown = 1.2f;
         }
 
-        // Projectile Attack
+        // Ataque à distância (projétil)
         if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT) && projectileCooldown <= 0) {
-            @SuppressWarnings("static-access")
-			Vector2 mouseWorldPos = camera.getWorldCoordinates(Gdx.input.getX(), Gdx.input.getY());
+            Vector2 mouseWorldPos = Camera.getWorldCoordinates(Gdx.input.getX(), Gdx.input.getY());
 
-            Vector2 direction = mouseWorldPos.sub(new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2)).nor();
-            projectiles.add(new Bullet(rect.x + rect.width / 2, rect.y + rect.height / 2, direction, 50, 500, 2f));
+            Vector2 direction = new Vector2(
+                mouseWorldPos.x - (playerBounds.x + playerBounds.width / 2),
+                mouseWorldPos.y - (playerBounds.y + playerBounds.height / 2)
+            ).nor();
+
+            projectiles.add(new Bullet(
+                playerBounds.x + playerBounds.width / 2,
+                playerBounds.y + playerBounds.height / 2,
+                direction,
+                50, // dano
+                500, // velocidade
+                2f  // tempo de vida
+            ));
             projectileCooldown = 2f;
         }
 

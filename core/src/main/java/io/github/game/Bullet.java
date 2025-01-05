@@ -24,7 +24,7 @@ public class Bullet extends Projectile{
 
         // Check collision with enemies
         for (Enemy enemy : enemies) {
-            if (enemy.rect.contains(position.x, position.y)) {
+            if (enemy.getBounds().contains(position.x, position.y)) {
                 enemy.takeDamage(50);// TANTO DE DAMAGE QUE A BALA VAI DAR
                 lifetime = 0; // Expire projectile
                 break;
