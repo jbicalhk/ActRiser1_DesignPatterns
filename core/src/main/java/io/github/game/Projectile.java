@@ -20,5 +20,5 @@ abstract class Projectile {
     boolean isExpired() {
         return lifetime <= 0;
     }
-    public abstract void render(ShapeRenderer renderer);
+    public abstract void render(Camera camera, ShapeRenderer renderer);
 }

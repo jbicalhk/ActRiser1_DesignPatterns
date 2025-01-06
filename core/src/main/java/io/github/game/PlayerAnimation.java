@@ -5,36 +5,45 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
-
 public class PlayerAnimation {
-    private static final int SPRITE_WIDTH = 48;
-    private static final int SPRITE_HEIGHT = 48;
-    private static final int IDLE_START_ROW = 0;
-    private static final int MOVE_START_ROW = 3;
-    private static final int ATTACK_START_ROW = 6;
-    private static final int DEATH_ROW = 9;
+    private static final int SPRITE_WIDTH = 96 / 6; // Largura de cada sprite (16)
+    private static final int SPRITE_HEIGHT = 19; // Altura de cada sprite
 
     private Texture spriteSheet;
-    private TextureRegion[][] frames;
+    private TextureRegion[] frames;
     private Animation<TextureRegion> currentAnimation;
     private float stateTime;
     private Direction currentDirection;
     private PlayerState currentState;
 
     public enum Direction {
-        UP(0), DOWN(1), LEFT(2), RIGHT(3);
-        
-        final int index;
-        Direction(int index) { this.index = index; }
+        DOWN(0, 1), RIGHT(2, 3), LEFT(2, 3), UP(4, 5);
+
+        final int startFrame;
+        final int endFrame;
+
+        Direction(int startFrame, int endFrame) {
+            this.startFrame = startFrame;
+            this.endFrame = endFrame;
+        }
     }
 
     public enum PlayerState {
-        IDLE, MOVING, ATTACKING, DEAD
+        IDLE, MOVING
     }
 
     public PlayerAnimation(String spritePath) {
         spriteSheet = new Texture(spritePath);
-        frames = TextureRegion.split(spriteSheet, SPRITE_WIDTH, SPRITE_HEIGHT);
+
+        // Dividir o spritesheet em uma linha de 6 sprites
+        TextureRegion fullSheet = new TextureRegion(spriteSheet);
+        frames = new TextureRegion[6];
+        for (int i = 0; i < 6; i++) {
+            frames[i] = new TextureRegion(
+                fullSheet, i * SPRITE_WIDTH, 0, SPRITE_WIDTH, SPRITE_HEIGHT
+            );
+        }
+
         currentDirection = Direction.DOWN;
         currentState = PlayerState.IDLE;
         stateTime = 0;
@@ -43,7 +52,7 @@ public class PlayerAnimation {
 
     public void update(float deltaTime, Direction direction, PlayerState state) {
         stateTime += deltaTime;
-        
+
         if (currentDirection != direction || currentState != state) {
             setAnimation(state, direction);
             currentDirection = direction;
@@ -52,35 +61,18 @@ public class PlayerAnimation {
     }
 
     private void setAnimation(PlayerState state, Direction direction) {
-    	int row;
-    	switch (state) {
-        case IDLE:
-            row = IDLE_START_ROW + direction.index;
-            break;
-        case MOVING:
-            row = MOVE_START_ROW + direction.index;
-            break;
-        case ATTACKING:
-            row = ATTACK_START_ROW + direction.index;
-            break;
-        case DEAD:
-            row = DEATH_ROW;
-            break;
-        default:
-            throw new IllegalStateException("Unexpected value: " + state);
-    }
-
         Array<TextureRegion> animationFrames = new Array<>();
-        for (int col = 0; col < frames[row].length; col++) {
-            TextureRegion frame = frames[row][col];
+
+        for (int i = direction.startFrame; i <= direction.endFrame; i++) {
+            TextureRegion frame = frames[i];
             if (direction == Direction.LEFT) {
                 frame = new TextureRegion(frame);
-                frame.flip(true, false);
+                frame.flip(true, false); // Inverter para LEFT
             }
             animationFrames.add(frame);
         }
 
-        float frameDuration = state == PlayerState.MOVING ? 0.1f : 0.2f;
+        float frameDuration = state == PlayerState.MOVING ? 0.1f : 0.5f; // Duração dos frames
         currentAnimation = new Animation<>(frameDuration, animationFrames, Animation.PlayMode.LOOP);
         stateTime = 0;
     }

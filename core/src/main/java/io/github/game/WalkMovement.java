@@ -1,3 +1,4 @@
+// Atualização da classe WalkMovement para o spritesheet fornecido
 package io.github.game;
 
 import com.badlogic.gdx.Gdx;
@@ -30,28 +31,28 @@ public class WalkMovement implements MovementStrategy {
             isMoving = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-        	player.posY -= speed * deltaTime;
+            player.posY -= speed * deltaTime;
             direction = PlayerAnimation.Direction.DOWN;
             isMoving = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-        	player.posX -= speed * deltaTime;
+            player.posX -= speed * deltaTime;
             direction = PlayerAnimation.Direction.LEFT;
             isMoving = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-        	player.posX += speed * deltaTime;
+            player.posX += speed * deltaTime;
             direction = PlayerAnimation.Direction.RIGHT;
             isMoving = true;
         }
 
         state = isMoving ? PlayerAnimation.PlayerState.MOVING : PlayerAnimation.PlayerState.IDLE;
         animation.update(deltaTime, direction, state);
-       
     }
 
-    public void render() {
+    public void render(Camera camera) {
         batch.begin();
+        batch.setProjectionMatrix(camera.getCamera().combined);
         batch.draw(animation.getCurrentFrame(), rect.x, rect.y);
         batch.end();
     }

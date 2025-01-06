@@ -33,9 +33,10 @@ public class Bullet extends Projectile{
     }
     
     //ISSO DAQUI É QUAL A FORMA DA BALA VAI ASSUMIR
-    public void render(ShapeRenderer renderer) {
+    public void render(Camera camera,ShapeRenderer renderer) {
+    	renderer.setProjectionMatrix(camera.getCamera().combined);
         renderer.setColor(Color.YELLOW);
-        renderer.circle(position.x, position.y, 5); // Representa uma bala como um círculo
+        renderer.circle(position.x -16 , position.y -16 , 5); // Representa uma bala como um círculo
     }
 
 }
