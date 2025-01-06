@@ -46,10 +46,10 @@ public class DesktopLauncher extends ApplicationAdapter {
 		vidas = new Array<>();
 		lastPotionLifeSpawn = TimeUtils.millis();
 		newBuilding = Gdx.audio.newSound(Gdx.files.internal("sounds/newBuilding.mp3"));
-
 		texto = new TextFader("Uma nova construção foi adicionada!", Gdx.graphics.getWidth() / 2f - 135,
 				Gdx.graphics.getHeight() / 2f + 150, 1f, 2f);
 
+		
 		eventManager.subscribe((event, data) -> {
 			if (event.equals("EnemyKilled")) {
 				player.addKill();
@@ -138,16 +138,14 @@ public class DesktopLauncher extends ApplicationAdapter {
 		}
 		shapeRenderer.end();
 
-		texto.render(textBatch); // Renderiza o texto com fade
+		texto.render(textBatch);
 
 		// Renderizar player e inimigos
 		player.render(camera, shapeRenderer);
 
 		for (Enemy enemy : enemies) {
 			enemy.render(camera, shapeRenderer);
-			// enemy.getBatch().setProjectionMatrix(camera.getCamera().combined);
 		}
-
 		// System.out.println(player.posY);
 	}
 
@@ -156,10 +154,16 @@ public class DesktopLauncher extends ApplicationAdapter {
 				MathUtils.random(144, 1114), spriteBatch);
 		enemies.add(enemy);
 	}
-
+	
 	private void spawnPotion() {
 		HealthPickUp vida = new HealthPickUp(MathUtils.random(144, 1142), MathUtils.random(144, 1142), 5, 15);
 		vidas.add(vida);
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		camera.getCamera().setToOrtho(false, width / 2f, height / 2f);
+		camera.getCamera().update();
 	}
 
 	@Override
