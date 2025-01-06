@@ -22,29 +22,38 @@ public class EnemyMovement implements MovementStrategy {
     public void move(float deltaTime, Player player) {
         Vector2 playerPosition = new Vector2(player.getPosX(), player.getPosY());
         Vector2 enemyPosition = new Vector2(bounds.getX(), bounds.getY());
+        float newX = bounds.x;
+        float newY = bounds.y;
 
         // Seguir o player se estiver no alcance
         if (enemyPosition.dst(playerPosition) < 100) {
             Vector2 direction = playerPosition.sub(enemyPosition).nor();
-            bounds.x += direction.x * 100 * deltaTime;
-            bounds.y += direction.y * 100 * deltaTime;
+            newX += direction.x * 100 * deltaTime;
+            newY += direction.y * 100 * deltaTime;
         } else {
             // Movimentação aleatória quando fora do alcance
             elapsedTime += deltaTime;
 
             if (elapsedTime > moveDuration) {
-                // Escolher uma nova direção e duração
                 currentDirection = Direction.randomDirection();
-                moveDuration = random.nextFloat() * 2 + 1; // Entre 1 e 3 segundos
+                moveDuration = random.nextFloat() * 2 + 1;
                 elapsedTime = 0;
             }
 
-            // Movimentar na direção atual, exceto se for NONE
             if (currentDirection != Direction.NONE) {
                 Vector2 movement = currentDirection.getVector();
-                bounds.x += movement.x * 50 * deltaTime; // Velocidade menor para a movimentação aleatória
-                bounds.y += movement.y * 50 * deltaTime;
+                newX += movement.x * 50 * deltaTime;
+                newY += movement.y * 50 * deltaTime;
             }
+        }
+
+        // Apply boundary checks
+        if (newX >= 144 && newX <= 1114 - bounds.width ) {
+            bounds.x = newX;
+        }
+        if (newY >= 144 && newY <= 1114 - bounds.height ) {
+            bounds.y = newY;
+        
         }
     }
 

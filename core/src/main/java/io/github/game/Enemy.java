@@ -4,12 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import java.util.Random;
 
 class Enemy extends Entity {
-    private Rectangle bounds; // For collision detection
+    //private Rectangle bounds; // For collision detection
     private float health = 100;
-    private Random random = new Random();
     private MovementStrategy movementStrategy;
     private AttackStrategy attackStrategy;
     private EnemyAnimation animation;

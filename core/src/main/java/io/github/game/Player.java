@@ -11,12 +11,10 @@ class Player extends Entity {
     private int kills = 0;
     private MovementStrategy movementStrategy;
     private AttackStrategy attackStrategy;
-    private SpriteBatch spriteBatch;
 	private HealthBar healthBar;
     
     Player(float posX, float posY, SpriteBatch batch) {
         super(posX, posY);
-        this.spriteBatch = batch;
         this.bounds = new Rectangle(posX, posY, 48, 48);
         this.vida = 100;
         this.dano = 10;

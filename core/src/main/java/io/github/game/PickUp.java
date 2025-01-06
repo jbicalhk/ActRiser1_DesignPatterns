@@ -30,7 +30,7 @@ public abstract class PickUp {
     public void render(Camera camera, ShapeRenderer shapeRenderer) {
     	shapeRenderer.setProjectionMatrix(camera.getCamera().combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.YELLOW);
+        shapeRenderer.setColor(Color.RED);
         shapeRenderer.circle(position.x, position.y, tam);
         shapeRenderer.end();
     }

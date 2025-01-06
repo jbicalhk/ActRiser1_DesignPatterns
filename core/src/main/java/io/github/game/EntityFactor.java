@@ -1,6 +1,7 @@
 package io.github.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 
 public class EntityFactor {
     public static Entity createEntity(String type, float posX, float posY, SpriteBatch batch) {
@@ -18,7 +19,7 @@ public class EntityFactor {
         }
     }
 
-    public static Building createBuilding() {
-        return new Building();
+    public static Building createBuilding(TiledMap map, String name) {
+        return new Building(map, name);
     }
 }

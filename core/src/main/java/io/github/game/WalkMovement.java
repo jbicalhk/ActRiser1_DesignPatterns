@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 public class WalkMovement implements MovementStrategy {
     private Rectangle rect;
@@ -24,27 +23,42 @@ public class WalkMovement implements MovementStrategy {
         boolean isMoving = false;
         PlayerAnimation.Direction direction = PlayerAnimation.Direction.DOWN;
         PlayerAnimation.PlayerState state = PlayerAnimation.PlayerState.IDLE;
+        
+        float newPosX = player.posX;
+        float newPosY = player.posY;
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            player.posY += speed * deltaTime;
+            newPosY += speed * deltaTime;
             direction = PlayerAnimation.Direction.UP;
             isMoving = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            player.posY -= speed * deltaTime;
+            newPosY -= speed * deltaTime;
             direction = PlayerAnimation.Direction.DOWN;
             isMoving = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            player.posX -= speed * deltaTime;
+            newPosX -= speed * deltaTime;
             direction = PlayerAnimation.Direction.LEFT;
             isMoving = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            player.posX += speed * deltaTime;
+            newPosX += speed * deltaTime;
             direction = PlayerAnimation.Direction.RIGHT;
             isMoving = true;
         }
+
+        // Apply boundary checks before updating position
+        if (newPosX >= 144 && newPosX <= 1142 - rect.width) {
+            player.posX = newPosX;
+        }
+        if (newPosY >= 144 && newPosY <= 1142 - rect.height) {
+            player.posY = newPosY;
+        }
+
+        state = isMoving ? PlayerAnimation.PlayerState.MOVING : PlayerAnimation.PlayerState.IDLE;
+        animation.update(deltaTime, direction, state);
+    
 
         state = isMoving ? PlayerAnimation.PlayerState.MOVING : PlayerAnimation.PlayerState.IDLE;
         animation.update(deltaTime, direction, state);
