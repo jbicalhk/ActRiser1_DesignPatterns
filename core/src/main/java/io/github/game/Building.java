@@ -1,4 +1,4 @@
-package io.github.game;
+/*package io.github.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -36,3 +36,4 @@ public class Building {
         }
     }
 }
+*/

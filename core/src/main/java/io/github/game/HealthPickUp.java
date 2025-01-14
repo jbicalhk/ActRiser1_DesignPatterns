@@ -16,7 +16,7 @@ class HealthPickUp extends PickUp {
 
     @Override
     public void applyEffect(Player player) {
-    	if(player.getBounds().contains(position)) {
+    	if(player.getBounds().contains(position) && player.getVida() < 100) {
     	heal.play((float) 0.09);
         player.increaseLife(healthBonus);
     	System.out.println("Vida aumentada");

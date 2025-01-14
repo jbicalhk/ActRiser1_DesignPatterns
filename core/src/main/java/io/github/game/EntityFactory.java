@@ -1,9 +1,8 @@
 package io.github.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 
-public class EntityFactor {
+public class EntityFactory {
     public static Entity createEntity(String type, float posX, float posY, SpriteBatch batch) {
         if (batch == null) {
             throw new IllegalArgumentException("SpriteBatch cannot be null");
@@ -17,9 +16,5 @@ public class EntityFactor {
             default:
                 throw new IllegalArgumentException("Unknown entity type: " + type);
         }
-    }
-
-    public static Building createBuilding(TiledMap map, String name) {
-        return new Building(map, name);
     }
 }

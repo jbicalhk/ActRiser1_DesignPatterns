@@ -5,13 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-public class WalkMovement implements MovementStrategy {
+public class FlyMovement implements MovementStrategy {
     private Rectangle rect;
     private float speed = 200f;
     private PlayerAnimation animation;
     private SpriteBatch batch;
 
-    public WalkMovement(Rectangle rect, SpriteBatch batch) {
+    public FlyMovement(Rectangle rect, SpriteBatch batch) {
         this.rect = rect;
         this.batch = batch;
         this.animation = new PlayerAnimation("player.png");

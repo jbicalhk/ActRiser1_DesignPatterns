@@ -51,6 +51,7 @@ public class Map {
             MapLayer layer = tiledMap.getLayers().get(index);
             if (layer != null) {
                 layer.setVisible(true); // Ativa a camada específica
+                System.out.println(layer.toString());
             }
         }
     }

@@ -1,4 +1,5 @@
-package io.github.game;
+/*package io.github.game;
+
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -10,10 +11,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-/**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
- * platforms.
- */
+
 public class DesktopLauncher extends ApplicationAdapter {
 	private ShapeRenderer shapeRenderer;
 	private Player player;
@@ -180,4 +178,4 @@ public class DesktopLauncher extends ApplicationAdapter {
 		mapa.dispose();
 		texto.dispose();
 	}
-}
+}*/

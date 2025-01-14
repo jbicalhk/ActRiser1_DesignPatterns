@@ -23,7 +23,7 @@ public class TextFader {
 
         // Usando a fonte padrão do LibGDX
         font = new BitmapFont();
-        font.setColor(new Color(1, 1, 1, 1)); // Inicialmente transparente
+        font.setColor(new Color(1, 1, 1, 1)); //Inicialmente transparente
     }
 
     public void show() {

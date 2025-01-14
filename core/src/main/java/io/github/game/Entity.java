@@ -37,13 +37,7 @@ abstract class Entity {
     }
 
     abstract void update(float deltaTime, Player player, Array<Enemy> enemies, Array<Projectile> projectiles);
-    abstract void render(ShapeRenderer renderer);
 
-    // Método para atualizar posição que todas as entidades compartilham
-    protected void updatePosition() {
-        bounds.x = posX;
-        bounds.y = posY;
-    }
     protected void updatePosition(float x, float y) {
         this.posX = x;
         this.posY = y;
@@ -53,10 +47,5 @@ abstract class Entity {
         }
     }
 
-	
-
-	void render(ShapeRenderer renderer, Camera camera) {
-		// TODO Auto-generated method stub
-		
-	}
+	abstract void render(Camera camera, ShapeRenderer renderer);
 }

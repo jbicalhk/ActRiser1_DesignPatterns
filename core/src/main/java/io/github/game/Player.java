@@ -18,7 +18,7 @@ class Player extends Entity {
         this.bounds = new Rectangle(posX, posY, 48, 48);
         this.vida = 100;
         this.dano = 10;
-        this.movementStrategy = new WalkMovement(bounds, batch);
+        this.movementStrategy = new FlyMovement(bounds, batch);
         this.attackStrategy = new PlayerAttackStrategy(bounds);
         this.healthBar = new HealthBar(posX, posY + bounds.height + 5, 55, 4 , this.vida);
     }
@@ -49,24 +49,23 @@ class Player extends Entity {
         bounds.y = posY;
         healthBar.setPosition(posX -20, posY - 10);
     }
-
+    
+    @Override
     void render(Camera camera, ShapeRenderer renderer) {
         // Only render health bar with ShapeRenderer
         healthBar.setHealth(this.vida);
         healthBar.render(camera, renderer);
         
         // Movement/animation rendering is handled by WalkMovement
-        ((WalkMovement)movementStrategy).render(camera);
+        ((FlyMovement)movementStrategy).render(camera);
     }
 
-	@Override
-	void render(ShapeRenderer renderer) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void increaseLife(int num) {
 		vida += num;
+		if(vida > 100){
+			vida = 100;
+		}
 	}
 
 	public Vector2 getPosition() {

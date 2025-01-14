@@ -49,13 +49,8 @@ class Enemy extends Entity {
         return health <= 0;
     }
     
-    @Override
-    void render(ShapeRenderer renderer) {
-        // We don't use ShapeRenderer anymore, but we need to keep this method
-        // for compatibility with the Entity class
-    }
 
-    // New render method that uses SpriteBatch
+    @Override
     void render(Camera camera, ShapeRenderer renderer) {
     	batch.setProjectionMatrix(camera.getCamera().combined);
         batch.begin();
