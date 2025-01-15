@@ -7,7 +7,7 @@ abstract class Projectile {
     Vector2 position;
     Vector2 direction;
     int dano;
-    protected float lifetime;
+	protected float lifetime;
     
 
     Projectile(float x, float y, Vector2 direction, int dano) {

@@ -22,7 +22,7 @@ public class Bullet extends Projectile {
 		position.y += direction.y * speed * deltaTime;
 		lifetime -= deltaTime;
 
-		// Check collision with enemies
+		// colisão
 		for (Enemy enemy : enemies) {
 			if (enemy.getBounds().contains(position.x, position.y)) {
 				enemy.takeDamage(50);// TANTO DE DAMAGE QUE A BALA VAI DAR
@@ -33,10 +33,11 @@ public class Bullet extends Projectile {
 	}
 
 	// ISSO DAQUI É QUAL A FORMA DA BALA VAI ASSUMIR
+	@Override
 	public void render(Camera camera, ShapeRenderer renderer) {
 		renderer.setProjectionMatrix(camera.getCamera().combined);
 		renderer.setColor(Color.YELLOW);
-		renderer.circle(position.x - 16, position.y - 16, 5); //ELA É UM CIRCULO 
+		renderer.circle(position.x - 16, position.y - 16, 5); // ELA É UM CIRCULO
 	}
 
 }

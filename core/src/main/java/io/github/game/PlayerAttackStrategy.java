@@ -31,7 +31,6 @@ public class PlayerAttackStrategy implements AttackStrategy {
 				if (playerBounds.overlaps(enemy.getBounds())) {
 					punch.play((float) 0.15);
 					enemy.takeDamage(15);
-					System.out.println("Player hit enemy! Enemy health: " + enemy.vida);
 				}
 			}
 			attackCooldown = 1.2f;
@@ -47,10 +46,7 @@ public class PlayerAttackStrategy implements AttackStrategy {
 					mouseWorldPos.y - (playerBounds.y + playerBounds.height / 2)).nor();
 
 			projectiles.add(new Bullet(playerBounds.x + playerBounds.width / 2,
-					playerBounds.y + playerBounds.height / 2, direction, 50, // dano
-					500, // velocidade
-					2f // tempo de vida
-			));
+					playerBounds.y + playerBounds.height / 2, direction, 50, 500, 2f));
 			projectileCooldown = 2f;
 		}
 

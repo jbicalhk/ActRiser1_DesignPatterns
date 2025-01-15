@@ -1,0 +1,17 @@
+Village Riser como jogar.
+
+Importação do projeto e compilação para a IDE Eclipse:
+
+1. Em Package Explorer, Clique com o botão direito e selecione Import > Gradle > Existing Gradle Project.
+
+2. Selecione a pasta GameTeste e clique em Finish.
+
+3. Logo após entre em Game-lwjgl3 > src/main/java > io.github.game.lwjgl3 > Lwjgl3Launcher.java
+
+4. Após entrar no Main do jogo, clique no botão "Run" na parte superior a esquerda.
+
+5. Assim que o jogo carregar, basta clicar em Play e jogar o Village Riser.
+
+Para outras IDEs:
+
+Importe o projeto GameTeste com o Gradle e repita os processos 3, 4 e 5.
